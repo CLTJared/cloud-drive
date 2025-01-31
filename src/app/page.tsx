@@ -76,7 +76,7 @@ export default function GoogleDriveClone() {
           {!isRoot && (
             <button
               onClick={handleBackClick}
-              className="mr-4 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+              className="mr-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
               aria-label="Go back"
             >
               <ArrowLeft className="w-6 h-6" />
