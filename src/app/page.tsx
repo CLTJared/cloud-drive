@@ -7,6 +7,8 @@ import { type Folder, mockData } from "../lib/data/mockData"
 import { FileList } from "../components/FileList"
 import { UploadButton } from "../components/UploadButton"
 import { Breadcrumb } from "../components/Breadcrumb"
+import { ThemeToggle } from "../components/ThemeToggle"
+import { ThemeProvider } from "../contexts/ThemeContext"
 
 export default function GoogleDriveClone() {
   const [currentFolder, setCurrentFolder] = useState<Folder>(() => {
@@ -50,22 +52,31 @@ export default function GoogleDriveClone() {
     if (breadcrumbs.length > 1) {
       const newBreadcrumbs = breadcrumbs.slice(0, -1)
       const parentFolder = newBreadcrumbs[newBreadcrumbs.length - 1]
-      setCurrentFolder(parentFolder)
-      setBreadcrumbs(newBreadcrumbs)
+      if(parentFolder) {
+        setCurrentFolder(parentFolder)
+        setBreadcrumbs(newBreadcrumbs)
+      } else {
+        console.error("Parent folder not found")
+      }
+      
     }
   }
 
   const isRoot = currentFolder.id === "root"
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-6">
-      <Breadcrumb breadcrumbs={breadcrumbs} onClick={handleBreadcrumbClick} />
+    <ThemeProvider>
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6">
+      <div className="flex justify-between items-center mb-4">
+        <Breadcrumb breadcrumbs={breadcrumbs} onClick={handleBreadcrumbClick} />
+        <ThemeToggle />
+      </div>
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center">
           {!isRoot && (
             <button
               onClick={handleBackClick}
-              className="mr-4 p-2 rounded-full hover:bg-gray-800 transition-colors"
+              className="mr-4 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
               aria-label="Go back"
             >
               <ArrowLeft className="w-6 h-6" />
@@ -77,5 +88,6 @@ export default function GoogleDriveClone() {
       </div>
       <FileList files={currentFolder.files} onFolderClick={handleFolderClick} />
     </div>
+    </ThemeProvider>
   )
 }

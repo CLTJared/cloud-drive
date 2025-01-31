@@ -16,7 +16,9 @@ export function Breadcrumb({ breadcrumbs, onClick }: BreadcrumbProps) {
             <button
               onClick={() => onClick(index)}
               className={`inline-flex items-center text-sm font-medium ${
-                index === breadcrumbs.length - 1 ? "text-white" : "text-gray-400 hover:text-white"
+                index === breadcrumbs.length - 1
+                ? "text-gray-900 dark:text-white"
+                : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               {folder.name}

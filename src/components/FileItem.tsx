@@ -18,7 +18,7 @@ export function FileItem({ file, onFolderClick }: FileItemProps) {
   return (
     <div
       onClick={handleClick}
-      className="grid grid-cols-3 gap-4 items-center p-2 hover:bg-gray-800 rounded cursor-pointer transition-colors"
+      className="grid grid-cols-3 gap-4 items-center p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded cursor-pointer transition-colors"
     >
       <div className="flex items-center">
         {file.type === "folder" ? (
@@ -28,8 +28,8 @@ export function FileItem({ file, onFolderClick }: FileItemProps) {
         )}
         <span className="text-sm font-medium">{file.name}</span>
       </div>
-      <div className="text-sm text-gray-400 capitalize">{file.type}</div>
-      <div className="text-sm text-gray-400">{file.size}</div>
+      <div className="text-sm text-gray-600 dark:text-gray-400 capitalize">{file.type}</div>
+      <div className="text-sm text-gray-600 dark:text-gray-400">{file.size}</div>
     </div>
   )
 }
