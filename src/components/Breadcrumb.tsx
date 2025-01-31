@@ -9,7 +9,7 @@ interface BreadcrumbProps {
 export function Breadcrumb({ breadcrumbs, onClick }: BreadcrumbProps) {
   return (
     <nav className="flex mb-4" aria-label="Breadcrumb">
-      <ol className="inline-flex items-center space-x-1 md:space-x-3">
+      <ol className="inline-flex items-center">
         {breadcrumbs.map((folder, index) => (
           <li key={folder.id} className="inline-flex items-center">
             {index > 0 && <ChevronRight className="w-5 h-5 text-gray-400 mx-2" />}
