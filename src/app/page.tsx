@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowLeft } from "lucide-react"
 // Created Imports
 import { type Folder, mockData } from "../lib/data/mockData"
 import { FileList } from "../components/FileList"
@@ -62,29 +61,15 @@ export default function GoogleDriveClone() {
     }
   }
 
-  const isRoot = currentFolder.id === "root"
-
   return (
     <ThemeProvider>
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6">
-      <div className="flex justify-between items-center mb-4">
-        <Breadcrumb breadcrumbs={breadcrumbs} onClick={handleBreadcrumbClick} />
-        <ThemeToggle />
-      </div>
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center">
-          {!isRoot && (
-            <button
-              onClick={handleBackClick}
-              className="mr-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Go back"
-            >
-              <ArrowLeft className="w-6 h-6" />
-            </button>
-          )}
-          <h1 className="text-2xl font-bold">{currentFolder.name}</h1>
+      <div className="flex justify-between items-center mb-4 gap-2">
+        <div className="flex flex-grow items-center">
+          <Breadcrumb breadcrumbs={breadcrumbs} onClick={handleBreadcrumbClick} />
         </div>
         <UploadButton />
+        <ThemeToggle />
       </div>
       <FileList files={currentFolder.files} onFolderClick={handleFolderClick} />
     </div>
