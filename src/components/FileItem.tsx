@@ -1,5 +1,5 @@
 import type { File } from "../lib/data/mockData"
-import { FileIcon, FolderIcon } from "lucide-react"
+import { FileIcon, FolderOpen } from "lucide-react"
 
 interface FileItemProps {
   file: File
@@ -22,7 +22,7 @@ export function FileItem({ file, onFolderClick }: FileItemProps) {
     >
       <div className="flex items-center">
         {file.type === "folder" ? (
-          <FolderIcon className="w-6 h-6 text-yellow-500 mr-2" />
+          <FolderOpen className="w-6 h-6 text-gray-800 dark:text-yellow-500 mr-2" />
         ) : (
           <FileIcon className="w-6 h-6 text-blue-500 mr-2" />
         )}
