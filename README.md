@@ -26,3 +26,10 @@ The [T3 Stack](https://create.t3.gg/) was developed to use NextJS and be typesaf
 
 ## Deployment
 [Netlify](https://clt-cloud.netlify.app/)
+
+
+## TODO
+- [ ] Set up database and data model
+- [ ] Move folder open state to URL
+- [ ] Add authentication
+- [ ] Add file uploading
