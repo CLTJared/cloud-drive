@@ -22,7 +22,16 @@ The [T3 Stack](https://create.t3.gg/) was developed to use NextJS and be typesaf
     - Rapid development of interface using AI
 
 ## What I Learned
+- v0 is a very powerful way to quickly create UI elements and features for testing.
+- TODO list in README can help keep track of new features added and make sure you're regularly checking and updating your documentation.
+- Using a service like Netlify to have constant running deploys can help troubleshoot build process regularly and make sure you're not only working locally.
 
 
 ## Deployment
 [Netlify](https://clt-cloud.netlify.app/)
+
+## TODO
+- [ ] Set up database and data model
+- [ ] Move folder open state to URL
+- [ ] Add authentication
+- [ ] Add file uploading
