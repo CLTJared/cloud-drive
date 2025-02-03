@@ -47,20 +47,6 @@ export default function GoogleDriveClone() {
     }
   }
 
-  const handleBackClick = () => {
-    if (breadcrumbs.length > 1) {
-      const newBreadcrumbs = breadcrumbs.slice(0, -1)
-      const parentFolder = newBreadcrumbs[newBreadcrumbs.length - 1]
-      if(parentFolder) {
-        setCurrentFolder(parentFolder)
-        setBreadcrumbs(newBreadcrumbs)
-      } else {
-        console.error("Parent folder not found")
-      }
-      
-    }
-  }
-
   return (
     <ThemeProvider>
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6">
