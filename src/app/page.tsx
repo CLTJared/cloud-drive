@@ -1,63 +1,80 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 // Created Imports
-import { type Folder, mockData } from "../lib/data/mockData"
-import { FileList } from "../components/FileList"
-import { UploadButton } from "../components/UploadButton"
-import { Breadcrumb } from "../components/Breadcrumb"
+import { type Folder, mockFiles, mockFolders } from "../lib/data/mockData"
+import { FileHeader, FileRow, FolderRow } from "../components/FileList"
+import { Button } from "../components/Button"
 import { ThemeToggle } from "../components/ThemeToggle"
 import { ThemeProvider } from "../contexts/ThemeContext"
+import { ChevronRight } from "lucide-react"
 
 export default function GoogleDriveClone() {
-  const [currentFolder, setCurrentFolder] = useState<Folder>(() => {
-    const rootFolder = mockData.find((folder) => folder.id === "root")
-    if (!rootFolder) {
-      throw new Error("Root folder not found in mockData")
-    }
-    return rootFolder
-  })
+  const [currentFolder, setCurrentFolder] = useState<string>("root")
 
-  const [breadcrumbs, setBreadcrumbs] = useState<Folder[]>(() => {
-    const rootFolder = mockData.find((folder) => folder.id === "root")
-    if (!rootFolder) {
-      throw new Error("Root folder not found in mockData")
-    }
-    return [rootFolder]
-  })
+  const getCurrentFiles = () => {
+    return mockFiles.filter((file) => file.parent === currentFolder)
+  }
+
+  const getCurrentFolders = () => {
+    return mockFolders.filter((folder) => folder.parent === currentFolder)
+  }
 
   const handleFolderClick = (folderId: string) => {
-    const newFolder = mockData.find((folder) => folder.id === folderId)
-    if (newFolder) {
-      setCurrentFolder(newFolder)
-      setBreadcrumbs((prev) => [...prev, newFolder])
-    } else {
-      console.error(`Folder with id ${folderId} not found`)
-    }
+    setCurrentFolder(folderId);
   }
 
-  const handleBreadcrumbClick = (index: number) => {
-    const newBreadcrumbs = breadcrumbs.slice(0, index + 1)
-    const lastFolder = newBreadcrumbs[newBreadcrumbs.length - 1]
-    if (lastFolder) {
-      setCurrentFolder(lastFolder)
-      setBreadcrumbs(newBreadcrumbs)
-    } else {
-      console.error("Invalid breadcrumb index")
+  const getBreadcrumbs = useMemo(() => {
+    const breadcrumbs = [];
+    let currentId = currentFolder;
+
+    while (currentId !== "root") {
+      const folder = mockFolders.find((folder) => folder.id === currentId);
+      if (folder) {
+        breadcrumbs.unshift(folder);
+        currentId = folder.parent ?? "root";
+      } else {
+        break;
+      }
     }
-  }
+
+    return breadcrumbs;
+  }, [currentFolder])
 
   return (
     <ThemeProvider>
     <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-6">
       <div className="flex justify-between items-center mb-4 gap-2">
         <div className="flex flex-grow items-center">
-          <Breadcrumb breadcrumbs={breadcrumbs} onClick={handleBreadcrumbClick} />
+          <button onClick={() => setCurrentFolder("root")} className="text-gray-500 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+            My Drive
+          </button>
+          {getBreadcrumbs.map((folder, _index) => (
+            <div key={folder.id} className="flex items-center">
+              <ChevronRight size={16} className="mx-2 text-gray-500" />
+              <button onClick={() => handleFolderClick(folder.id)} className="text-gray-500 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white">
+                {folder.name}
+              </button>
+            </div>
+          ))}
+
         </div>
-        <UploadButton />
+        <Button />
         <ThemeToggle />
       </div>
-      <FileList files={currentFolder.files} onFolderClick={handleFolderClick} />
+      <FileHeader />
+        { getCurrentFolders().map((folder) => (
+          <FolderRow 
+            key={folder.id} 
+            folder={folder} 
+            handleFolderClick={() => { handleFolderClick(folder.id) }} />
+        ))}
+
+        { getCurrentFiles().map((file) => (
+          <FileRow 
+            key={file.id} 
+            file={file} />
+        ))}
     </div>
     </ThemeProvider>
   )
