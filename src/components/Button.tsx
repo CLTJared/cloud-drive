@@ -1,6 +1,6 @@
 import { UploadIcon } from "lucide-react"
 
-export function UploadButton() {
+export function Button() {
   const handleUpload = () => {
     alert("Upload functionality would be implemented here")
   }
