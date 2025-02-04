@@ -35,3 +35,11 @@ The [T3 Stack](https://create.t3.gg/) was developed to use NextJS and be typesaf
 - [ ] Move folder open state to URL
 - [ ] Add authentication
 - [ ] Add file uploading
+
+### Notes from 2/3/2025
+Set up database and data model
+- [x] Setup Database
+- [ ] Update schema to show files & folders
+- [ ] Manually insert examples
+- [ ] Rennder them in the UI
+- [ ] Deploy working build
